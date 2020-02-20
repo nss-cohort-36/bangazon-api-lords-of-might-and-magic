@@ -16,6 +16,7 @@ class Product(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.DO_NOTHING)
 
     class Meta:
+        ordering = ("created_at",)
         verbose_name = ("product")
         verbose_name_plural = ("products")
 
