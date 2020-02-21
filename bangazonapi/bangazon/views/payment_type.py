@@ -18,7 +18,7 @@ class PaymentTypeSerializer(serializers.HyperlinkedModelSerializer):
             view_name='paymentType',
             lookup_field='id'
         )
-        fields = ('id', 'url', )
+        fields = ('id', 'url', 'merchant_name', 'acct_number', 'expiration_date', 'customerId', 'created_at')
 
 class PaymentTypes(ViewSet):
     """Payment Types for Bangazon"""
