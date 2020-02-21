@@ -18,7 +18,7 @@ class PaymentTypeSerializer(serializers.HyperlinkedModelSerializer):
             view_name='paymentType',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'merchant_name', 'acct_number', 'expiration_date', 'customerId', 'created_at')
+        fields = ('id', 'url', 'merchant_name', 'acct_number', 'expiration_date', 'customer_Id', 'created_at')
 
 class PaymentTypes(ViewSet):
     """Payment Types for Bangazon"""
@@ -29,16 +29,16 @@ class PaymentTypes(ViewSet):
         Returns:
             Response -- JSON serialized Payment Types instance
         """
-        newpaymentType = PaymentType()
-        newpaymentType.merchant_name = request.data["merchant_name"]
-        newpaymentType.acct_number = request.data["acct_number"]
-        newpaymentType.expiration_date = request.data["expiration_date"]
-        newpaymentType.customerId = request.data["customerId"]
-        newpaymentType.created_at = request.data["created_at"]
+        new_payment_type = PaymentType()
+        new_payment_type.merchant_name = request.data["merchant_name"]
+        new_payment_type.acct_number = request.data["acct_number"]
+        new_payment_type.expiration_date = request.data["expiration_date"]
+        new_payment_type.customer_id = request.data["customer_id"]
+        new_payment_type.created_at = request.data["created_at"]
 
-        newpaymentType.save()
+        new_payment_type.save()
 
-        serializer = PaymentTypeSerializer(newpaymentType, context={'request': request})
+        serializer = PaymentTypeSerializer(new_payment_type, context={'request': request})
 
         return Response(serializer.data)
 
@@ -49,8 +49,8 @@ class PaymentTypes(ViewSet):
             Response -- JSON serialized Payment Type instance
         """
         try:
-            paymentType = PaymentType.objects.get(pk=pk)
-            serializer = PaymentTypeSerializer(paymentType, context={'request': request})
+            payment_type = PaymentType.objects.get(pk=pk)
+            serializer = PaymentTypeSerializer(payment_type, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
@@ -61,14 +61,14 @@ class PaymentTypes(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        newpaymentType = PaymentType()
-        newpaymentType.merchant_name = request.data["merchant_name"]
-        newpaymentType.acct_number = request.data["acct_number"]
-        newpaymentType.expiration_date = request.data["expiration_date"]
-        newpaymentType.customerId = request.data["customerId"]
-        newpaymentType.created_at = request.data["created_at"]
+        new_payment_type = PaymentType()
+        new_payment_type.merchant_name = request.data["merchant_name"]
+        new_payment_type.acct_number = request.data["acct_number"]
+        new_payment_type.expiration_date = request.data["expiration_date"]
+        new_payment_type.customer_id = request.data["customer_id"]
+        new_payment_type.created_at = request.data["created_at"]
 
-        newpaymentType.save()
+        new_payment_type.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
@@ -79,8 +79,8 @@ class PaymentTypes(ViewSet):
             Response -- 200, 404, or 500 status code
         """
         try:
-            PaymentType = PaymentType.objects.get(pk=pk)
-            PaymentType.delete()
+            payment_type = PaymentType.objects.get(pk=pk)
+            payment_type.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
@@ -96,8 +96,8 @@ class PaymentTypes(ViewSet):
         Returns:
             Response -- JSON serialized list of payment types
         """
-        paymentTypes = PaymentType.objects.all()
+        payment_types = PaymentType.objects.all()
         serializer = PaymentTypeSerializer(
-            paymentTypes, many=True, context={'request': request})
+            payment_types, many=True, context={'request': request})
         return Response(serializer.data)
 
