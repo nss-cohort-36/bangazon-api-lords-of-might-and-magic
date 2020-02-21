@@ -1,0 +1,92 @@
+[
+    {
+        "model": "bangazon.product",
+        "pk": 1,
+        "fields": {
+            "name": "product",
+            "customer_id": 1,
+            "price": 17.11,
+            "description": "a long string with a beautiful description",
+            "quantity": 7,
+            "location": "somewhere",
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
+        }
+    },
+    {
+        "model": "bangazon.product",
+        "pk": 1,
+        "fields": {
+            "name": "soap",
+            "customer_id": 1,
+            "price": 17.11,
+            "description": "a long string with a beautiful description",
+            "quantity": 7,
+            "location": "somewhere",
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
+        }
+    },
+    {
+        "model": "bangazon.product",
+        "pk": 1,
+        "fields": {
+            "name": "car",
+            "customer_id": 1,
+            "price": 17.11,
+            "description": "a long string with a beautiful description",
+            "quantity": 7,
+            "location": "somewhere",
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
+        }
+    },
+    {
+        "model": "bangazon.product",
+        "pk": 1,
+        "fields": {
+            "name": "house",
+            "customer_id": 1,
+            "price": 17.11,
+            "description": "a long string with a beautiful description",
+            "quantity": 7,
+            "location": "somewhere",
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
+        }
+    },
+    {
+        "model": "bangazon.product",
+        "pk": 1,
+        "fields": {
+            "name": "apple",
+            "customer_id": 1,
+            "price": 17.11,
+            "description": "a long string with a beautiful description",
+            "quantity": 7,
+            "location": "somewhere",
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
+        }
+    },
+    {
+        "model": "bangazon.product",
+        "pk": 1,
+        "fields": {
+            "name": "cup",
+            "customer_id": 1,
+            "price": 17.11,
+            "description": "a long string with a beautiful description",
+            "quantity": 7,
+            "location": "so2020-2-21ere",
+            "image_path": "picture.jpg",
+            "created_at": "date",
+            "product_type_id": 1
+        }
+    }
+]
