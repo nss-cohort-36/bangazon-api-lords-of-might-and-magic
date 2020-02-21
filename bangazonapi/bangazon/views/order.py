@@ -18,7 +18,7 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
             view_name='order',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'created_At', 'customerId', 'payment_type')
+        fields = ('id', 'url', 'created_at', 'customer_id', 'payment_type')
 
 class Orders(ViewSet):
     """Orders for Bangazon"""
@@ -30,8 +30,8 @@ class Orders(ViewSet):
             Response -- JSON serialized Orders instance
         """
         neworder = Order()
-        neworder.created_at = request.data["created_At"]
-        neworder.customerId = request.data["customerId"]
+        neworder.created_at = request.data["created_at"]
+        neworder.customer_id = request.data["customer_id"]
         neworder.payment_type = request.data["payment_type"]
 
         neworder.save()
@@ -61,7 +61,7 @@ class Orders(ViewSet):
         """
         order = Order()
         order.created_At = request.data["created_At"]
-        order.customerId = request.data["customerId"]
+        order.customer_id = request.data["customer_id"]
         order.payment_type = request.data["payment_type"]
 
         order.save()
