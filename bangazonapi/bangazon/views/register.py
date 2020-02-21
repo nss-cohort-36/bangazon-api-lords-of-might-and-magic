@@ -1,6 +1,6 @@
 import json
 from django.http import HttpResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
@@ -11,7 +11,7 @@ from bangazon.models import Customer
 def login_user(request):
     '''Handles the authentication of a user
 
-    Method arguments:
+    Method arguments:s
       request -- The full HTTP request object
     '''
 
@@ -36,6 +36,7 @@ def login_user(request):
             data = json.dumps({"valid": False})
             return HttpResponse(data, content_type='application/json')
 
+
 @csrf_exempt
 def register_user(request):
     '''Handles the creation of a new user for authentication
@@ -58,12 +59,9 @@ def register_user(request):
     )
 
     customer = Customer.objects.create(
-        family_members=req_body['family_members'],
+        is_active=req_body['is_active'],
         user=new_user
     )
-
-    # # Commit the user to the database by saving it
-    # customer.save()
 
     # Use the REST Framework's token generator on the new user account
     token = Token.objects.create(user=new_user)
