@@ -38,7 +38,7 @@ class Products(ViewSet):
         newproduct.quantity = request.data["quantity"]
         newproduct.location = request.data["location"]
         newproduct.imagePath = request.data["imagePath"]
-        newproduct.createdAt = request.data["createdAt"]
+        # newproduct.createdAt = request.data["createdAt"]
         newproduct.productTypeId = request.data["productTypeId"]
         newproduct.save()
 
