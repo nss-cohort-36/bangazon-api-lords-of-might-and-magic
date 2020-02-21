@@ -18,7 +18,7 @@ class PaymentTypeSerializer(serializers.HyperlinkedModelSerializer):
             view_name='paymentType',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'merchant_name', 'acct_number', 'expiration_date', 'customer_Id', 'created_at')
+        fields = ('id', 'url', 'merchant_name', 'acct_number', 'expiration_date', 'created_at')
 
 class PaymentTypes(ViewSet):
     """Payment Types for Bangazon"""
@@ -33,7 +33,7 @@ class PaymentTypes(ViewSet):
         new_payment_type.merchant_name = request.data["merchant_name"]
         new_payment_type.acct_number = request.data["acct_number"]
         new_payment_type.expiration_date = request.data["expiration_date"]
-        new_payment_type.customer_id = request.data["customer_id"]
+        new_payment_type.customer_id = request.auth.user.customer.id
         new_payment_type.created_at = request.data["created_at"]
 
         new_payment_type.save()
@@ -65,7 +65,7 @@ class PaymentTypes(ViewSet):
         new_payment_type.merchant_name = request.data["merchant_name"]
         new_payment_type.acct_number = request.data["acct_number"]
         new_payment_type.expiration_date = request.data["expiration_date"]
-        new_payment_type.customer_id = request.data["customer_id"]
+        new_payment_type.customer_id = request.auth.user.customer.id
         new_payment_type.created_at = request.data["created_at"]
 
         new_payment_type.save()
