@@ -2,9 +2,9 @@
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from rest_framework import serializers
-from rest_framework import status
+from rest_framework import serializers, status
 from bangazon.models import Product
+
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for Products
@@ -18,7 +18,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
             view_name='product',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'name', 'customerId', 'price', 'description', 'quantity', 'location', 'imagePath', 'createdAt', 'productTypeId')
+        fields = ('id', 'url', 'name', 'customer_id', 'price', 'description', 'quantity', 'location', 'image_path', 'product_type_id')
 
 class Products(ViewSet):
     """Products for Bangazon"""
@@ -31,14 +31,13 @@ class Products(ViewSet):
         """
         newproduct = Product()
         newproduct.name = request.data["name"]
-        newproduct.customerId = request.data["customerId"]
+        newproduct.customer_id = request.auth.user.customer.id
         newproduct.price = request.data["price"]
         newproduct.description = request.data["description"]
         newproduct.quantity = request.data["quantity"]
         newproduct.location = request.data["location"]
-        newproduct.imagePath = request.data["imagePath"]
-        newproduct.createdAt = request.data["createdAt"]
-        newproduct.productTypeId = request.data["productTypeId"]
+        newproduct.image_path = request.data["image_path"]
+        newproduct.product_type_id = request.data["product_type_id"]
         newproduct.save()
 
         serializer = ProductSerializer(newproduct, context={'request': request})
