@@ -22,6 +22,7 @@ from bangazon.models import *
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'products', Products, 'product')
 router.register(r'orders', Orders, 'order')
+router.register(r'paymentTypes', PaymentTypes, 'paymentType')
 
 urlpatterns = [
     path('', include(router.urls)),
