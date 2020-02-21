@@ -4,14 +4,14 @@
         "pk": 1,
         "fields": {
             "name": "product",
-            "customerId": 1,
+            "customer_id": 1,
             "price": 17.11,
             "description": "a long string with a beautiful description",
             "quantity": 7,
             "location": "somewhere",
-            "imagepath": "picture.jpg",
-            "createdAt": "date",
-            "productTypeId": 1
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
         }
     },
     {
@@ -19,14 +19,14 @@
         "pk": 1,
         "fields": {
             "name": "soap",
-            "customerId": 1,
+            "customer_id": 1,
             "price": 17.11,
             "description": "a long string with a beautiful description",
             "quantity": 7,
             "location": "somewhere",
-            "imagepath": "picture.jpg",
-            "createdAt": "date",
-            "productTypeId": 1
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
         }
     },
     {
@@ -34,14 +34,14 @@
         "pk": 1,
         "fields": {
             "name": "car",
-            "customerId": 1,
+            "customer_id": 1,
             "price": 17.11,
             "description": "a long string with a beautiful description",
             "quantity": 7,
             "location": "somewhere",
-            "imagepath": "picture.jpg",
-            "createdAt": "date",
-            "productTypeId": 1
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
         }
     },
     {
@@ -49,14 +49,14 @@
         "pk": 1,
         "fields": {
             "name": "house",
-            "customerId": 1,
+            "customer_id": 1,
             "price": 17.11,
             "description": "a long string with a beautiful description",
             "quantity": 7,
             "location": "somewhere",
-            "imagepath": "picture.jpg",
-            "createdAt": "date",
-            "productTypeId": 1
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
         }
     },
     {
@@ -64,14 +64,14 @@
         "pk": 1,
         "fields": {
             "name": "apple",
-            "customerId": 1,
+            "customer_id": 1,
             "price": 17.11,
             "description": "a long string with a beautiful description",
             "quantity": 7,
             "location": "somewhere",
-            "imagepath": "picture.jpg",
-            "createdAt": "date",
-            "productTypeId": 1
+            "image_path": "picture.jpg",
+            "created_at": "2020-2-21",
+            "product_type_id": 1
         }
     },
     {
@@ -79,14 +79,14 @@
         "pk": 1,
         "fields": {
             "name": "cup",
-            "customerId": 1,
+            "customer_id": 1,
             "price": 17.11,
             "description": "a long string with a beautiful description",
             "quantity": 7,
-            "location": "somewhere",
-            "imagepath": "picture.jpg",
-            "createdAt": "date",
-            "productTypeId": 1
+            "location": "so2020-2-21ere",
+            "image_path": "picture.jpg",
+            "created_at": "date",
+            "product_type_id": 1
         }
     }
 ]
