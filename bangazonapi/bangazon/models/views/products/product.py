@@ -4,7 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
-from bangazonapi.models import Product
+from bangazonapi.bangazon.models import Product
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for Products
