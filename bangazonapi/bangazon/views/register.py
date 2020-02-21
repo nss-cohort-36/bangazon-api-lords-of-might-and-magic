@@ -58,7 +58,7 @@ def register_user(request):
         last_name=req_body['last_name']
     )
 
-    customer = Customer.objects.create(
+    Customer.objects.create(
         is_active=req_body['is_active'],
         user=new_user
     )
