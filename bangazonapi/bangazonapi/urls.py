@@ -16,11 +16,12 @@ Including another URLconf
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from bangazon.views import Product
+from bangazon.views import Products, Orders
 from bangazon.models import *
 
 router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'products', Product, 'product')
+router.register(r'products', Products, 'product')
+router.register(r'orders', Orders, 'order')
 
 urlpatterns = [
     path('', include(router.urls)),
