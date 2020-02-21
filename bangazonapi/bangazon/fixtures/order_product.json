@@ -1,6 +1,6 @@
 [
     {
-    "model": "bangazon.order_product",
+    "model": "bangazon.orderproduct",
     "pk": 1,
     "fields": {
         "order_id": 1,
@@ -8,7 +8,7 @@
     }
 },
     {
-    "model": "bangazon.order_product",
+    "model": "bangazon.orderproduct",
     "pk": 2,
     "fields": {
         "order_id": 2,
@@ -16,7 +16,7 @@
     }
 },
     {
-    "model": "bangazon.order_product",
+    "model": "bangazon.orderproduct",
     "pk": 3,
     "fields": {
         "order_id": 3,
@@ -24,7 +24,7 @@
     }
 },
     {
-    "model": "bangazon.order_product",
+    "model": "bangazon.orderproduct",
     "pk": 4,
     "fields": {
         "order_id": 4,
@@ -32,7 +32,7 @@
     }
 },
     {
-    "model": "bangazon.order_product",
+    "model": "bangazon.orderproduct",
     "pk": 5,
     "fields": {
         "order_id": 5,

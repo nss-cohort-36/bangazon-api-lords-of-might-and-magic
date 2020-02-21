@@ -10,7 +10,7 @@
             "quantity": 7,
             "location": "somewhere",
             "image_path": "picture.jpg",
-            "created_at": "2020-2-21",
+            "created_at": "2020-02-21",
             "product_type_id": 1
         }
     },
@@ -25,7 +25,7 @@
             "quantity": 7,
             "location": "somewhere",
             "image_path": "picture.jpg",
-            "created_at": "2020-2-21",
+            "created_at": "2020-02-21",
             "product_type_id": 1
         }
     },
@@ -40,7 +40,7 @@
             "quantity": 7,
             "location": "somewhere",
             "image_path": "picture.jpg",
-            "created_at": "2020-2-21",
+            "created_at": "2020-02-21",
             "product_type_id": 1
         }
     },
@@ -55,7 +55,7 @@
             "quantity": 7,
             "location": "somewhere",
             "image_path": "picture.jpg",
-            "created_at": "2020-2-21",
+            "created_at": "2020-02-21",
             "product_type_id": 1
         }
     },
@@ -70,7 +70,7 @@
             "quantity": 7,
             "location": "somewhere",
             "image_path": "picture.jpg",
-            "created_at": "2020-2-21",
+            "created_at": "2020-02-21",
             "product_type_id": 1
         }
     },
@@ -83,9 +83,9 @@
             "price": 17.11,
             "description": "a long string with a beautiful description",
             "quantity": 7,
-            "location": "so2020-2-21ere",
+            "location": "somewhere",
             "image_path": "picture.jpg",
-            "created_at": "date",
+            "created_at": "2020-02-21",
             "product_type_id": 1
         }
     }
