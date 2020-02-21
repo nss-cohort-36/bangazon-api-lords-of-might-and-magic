@@ -1,34 +1,34 @@
 [
     {
-        "model": "bangazon.product_type",
+        "model": "bangazon.producttype",
         "pk": 1,
         "fields": {
             "name": "outdoors"
         }
     },
     {
-        "model": "bangazon.product_type",
+        "model": "bangazon.producttype",
         "pk": 2,
         "fields": {
             "name": "electronics"
         }
     },
     {
-        "model": "bangazon.product_type",
+        "model": "bangazon.producttype",
         "pk": 3,
         "fields": {
             "name": "auto"
         }
     },
     {
-        "model": "bangazon.product_type",
+        "model": "bangazon.producttype",
         "pk": 4,
         "fields": {
             "name": "home"
         }
     },
     {
-        "model": "bangazon.product_type",
+        "model": "bangazon.producttype",
         "pk": 5,
         "fields": {
             "name": "clothing"
