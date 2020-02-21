@@ -40,7 +40,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+<<<<<<< HEAD
     'bangazonapi',
+=======
+    'bangazon',
+>>>>>>> master
 ]
 
 REST_FRAMEWORK = {
