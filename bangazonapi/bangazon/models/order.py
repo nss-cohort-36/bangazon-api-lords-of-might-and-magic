@@ -8,7 +8,7 @@ class Order(models.Model):
 
     created_at = models.DateField(auto_now=False, auto_now_add=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    payment_type = models.ForeignKey(PaymentType, on_delete=models.DO_NOTHING)
+    payment_type = models.ForeignKey(PaymentType, on_delete=models.DO_NOTHING, null=True, default=None)
     products = models.ManyToManyField(Product, through="OrderProduct")
 
     class Meta:
