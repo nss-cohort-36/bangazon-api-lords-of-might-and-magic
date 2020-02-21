@@ -1,8 +1,7 @@
 from django.db import models
 from .customer import Customer
-from .payment_type import PaymentType
 from .product import Product
-from .order_product import OrderProduct
+from .payment_type import PaymentType
 
 
 class Order(models.Model):
@@ -10,7 +9,7 @@ class Order(models.Model):
     created_at = models.DateField(auto_now=False, auto_now_add=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     payment_type = models.ForeignKey(PaymentType, on_delete=models.DO_NOTHING)
-    products = models.ManyToManyField(Product, through=OrderProduct)
+    products = models.ManyToManyField(Product, through="OrderProduct")
 
     class Meta:
         ordering = ("created_at",)
