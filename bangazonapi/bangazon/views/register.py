@@ -59,7 +59,7 @@ def register_user(request):
     )
 
     Customer.objects.create(
-        is_active=req_body['is_active'],
+        is_active=True,
         user=new_user
     )
 
