@@ -6,13 +6,13 @@
 
 * Create your OSX virtual environment in Terminal:
 
-  * `python -m venv workforceenv`
-  * `source ./workforceenv/bin/activate`
+  * `python -m venv BangazonEnv`
+  * `source ./BangazonEnv/bin/activate`
 
 * Or create your Windows virtual environment in Command Line:
 
-  * `python -m venv workforceenv`
-  * `source ./workforceenv/Scripts/activate`
+  * `python -m venv BangazonEnv`
+  * `source ./BangazonEnv/Scripts/activate`
 
 * Install the app's dependencies:
 
