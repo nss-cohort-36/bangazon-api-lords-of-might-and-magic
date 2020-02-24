@@ -15,7 +15,7 @@ class PaymentTypeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PaymentType
         url = serializers.HyperlinkedIdentityField(
-            view_name='paymentType',
+            view_name='paymenttype',
             lookup_field='id'
         )
         fields = ('id', 'url', 'merchant_name', 'acct_number', 'expiration_date', 'created_at')
