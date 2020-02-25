@@ -1,9 +1,9 @@
-"""Products for Bangazon"""
+"""Product Types for Bangazon"""
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazon.models import product_type
+from bangazon.models import ProductType
 
 
 class ProductTypeSerializer(serializers.HyperlinkedModelSerializer):
@@ -13,7 +13,7 @@ class ProductTypeSerializer(serializers.HyperlinkedModelSerializer):
         serializers
     """
     class Meta:
-        model = product_type
+        model = ProductType
         url = serializers.HyperlinkedIdentityField(
             view_name='product_type',
             lookup_field='id'
@@ -29,7 +29,7 @@ class ProductTypes(ViewSet):
         Returns:
             Response -- JSON serialized Products instance
         """
-        new_product_type = ProductTypes()
+        new_product_type = ProductType()
         new_product_type.name = request.data["name"]
         new_product_type.save()
 
@@ -44,7 +44,7 @@ class ProductTypes(ViewSet):
             Response -- JSON serialized product instance
         """
         try:
-            product_type = ProductTypes.objects.get(pk=pk)
+            product_type = ProductType.objects.get(pk=pk)
             serializer = ProductTypeSerializer(product_type, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
@@ -69,12 +69,12 @@ class ProductTypes(ViewSet):
             Response -- 200, 404, or 500 status code
         """
         try:
-            product_type = ProductTypes.objects.get(pk=pk)
+            product_type = ProductType.objects.get(pk=pk)
             product_type.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-        except ProductTypes.DoesNotExist as ex:
+        except ProductType.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as ex:
@@ -86,7 +86,7 @@ class ProductTypes(ViewSet):
         Returns:
             Response -- JSON serialized list of product types
         """
-        product_type = ProductTypes.objects.all()
+        product_type = ProductType.objects.all()
         serializer = ProductTypeSerializer(
             product_type, many=True, context={'request': request})
         return Response(serializer.data)
