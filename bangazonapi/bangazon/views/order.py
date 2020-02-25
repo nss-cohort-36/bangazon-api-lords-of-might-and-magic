@@ -6,6 +6,10 @@ from rest_framework import serializers
 from rest_framework import status
 from bangazon.models import Order
 import datetime
+from rest_framework.decorators import action
+from .product import ProductSerializer
+from .product import Product
+from .customer import Customer
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for Orders
@@ -20,6 +24,7 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         fields = ('id', 'url', 'created_at', 'payment_type_id', 'products')
+        depth = 1
 
 class Orders(ViewSet):
     """Orders for Bangazon"""
@@ -100,3 +105,18 @@ class Orders(ViewSet):
             orders, many=True, context={'request': request})
         return Response(serializer.data)
 
+    # Example request:
+    #   http://localhost:8000/orders/cart
+    # @action(methods=['get'], detail=False)
+    # def cart(self, request):
+    #     current_user = Customer.objects.get(user=request.auth.user)
+    
+    #     try:
+    #         open_order = Order.objects.get(customer=current_user, payment_type=None)
+    #         orderproducts.filter(order__id=open_order.id)
+    #         products_on_order = Product.objects.filter(cart__order=open_order)
+    #     except Order.DoesNotExist as ex:
+    #         return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+    #     serializer = OrderSerializer(open_order, context={'request': request})
+    #     return Response(serializer.data)
