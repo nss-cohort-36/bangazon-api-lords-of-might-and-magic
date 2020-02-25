@@ -34,7 +34,6 @@ class PaymentTypes(ViewSet):
         new_payment_type.acct_number = request.data["acct_number"]
         new_payment_type.expiration_date = request.data["expiration_date"]
         new_payment_type.customer_id = request.auth.user.customer.id
-        new_payment_type.created_at = request.data["created_at"]
 
         new_payment_type.save()
 
@@ -90,14 +89,13 @@ class PaymentTypes(ViewSet):
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def list(self, request):
-        """Handle GET requests to payment types resource
+    def list(self, request, pk=None):
+        """Handle GET requests to payment types of current user
 
         Returns:
             Response -- JSON serialized list of payment types
         """
-        payment_types = PaymentType.objects.all()
+        payment_types = PaymentType.objects.filter(customer_id=request.auth.user.customer.id)
         serializer = PaymentTypeSerializer(
             payment_types, many=True, context={'request': request})
         return Response(serializer.data)
-
