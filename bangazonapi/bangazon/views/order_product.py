@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazon.models import OrderProduct, Order, Product
+from bangazon.models import OrderProduct, Order, Product, Customer
 
 # for custom sql method
 import sqlite3
@@ -49,9 +49,16 @@ class OrderProducts(ViewSet):
         Returns:
             Response -- JSON serialized list of order_products
         """
+        current_user = Customer.objects.get(user=request.auth.user)
 
         try:
-            order_products = OrderProduct.objects.all()
+            # order_products = OrderProduct.objects.all()
+            # serializer = OrderProductSerializer(
+            #     order_products, many=True, context={'request': request})
+            # return Response(serializer.data)
+
+            open_order = Order.objects.get(customer=current_user, payment_type=None)
+            order_products = OrderProduct.objects.filter(order=open_order)
             serializer = OrderProductSerializer(
                 order_products, many=True, context={'request': request})
             return Response(serializer.data)
