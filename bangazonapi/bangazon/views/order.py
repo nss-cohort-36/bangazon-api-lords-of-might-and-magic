@@ -96,10 +96,13 @@ class Orders(ViewSet):
         Returns:
             Response -- JSON serialized list of Orders
         """
-        orders = Order.objects.get(customer_id=request.auth.user.customer.id, payment_type = None)
-        serializer = OrderSerializer(
-            orders, context={'request': request})
-        return Response(serializer.data)
+        try:
+            order = Order.objects.get(customer_id=request.auth.user.customer.id, payment_type = None)
+            serializer = OrderSerializer(
+                order, context={'request': request})
+            return Response(serializer.data)
+        except Order.DoesNotExist:
+            return Response({})
 
     # Example request:
     #   http://localhost:8000/orders/cart
