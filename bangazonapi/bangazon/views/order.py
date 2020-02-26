@@ -35,10 +35,7 @@ class Orders(ViewSet):
             Response -- JSON serialized Orders instance
         """
         neworder = Order()
-        neworder.created_at = request.data["created_at"]
         neworder.customer_id = request.auth.user.customer.id
-        neworder.payment_type_id = request.data["payment_type_id"]
-        neworder.products = request.data["products"]
 
         neworder.save()
 
