@@ -15,8 +15,6 @@ class Product(models.Model):
     location = models.CharField(max_length=75)
     image_path = models.CharField(max_length=255)
     product_type = models.ForeignKey(ProductType, on_delete=models.DO_NOTHING)
-    order_products = models.ForeignKey(OrderProduct, on_delete=models.DO_NOTHING)
-
 
     class Meta:
         ordering = ("created_at",)

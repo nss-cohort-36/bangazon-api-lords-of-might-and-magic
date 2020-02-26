@@ -2,7 +2,13 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazon.models import OrderProduct, Order
+from bangazon.models import OrderProduct, Order, Product
+
+# for custom sql method
+import sqlite3
+from django.shortcuts import render
+from .connection import Connection
+
 
 class OrderProductSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for OrderProducts
@@ -18,7 +24,7 @@ class OrderProductSerializer(serializers.HyperlinkedModelSerializer):
         )
         fields = ('id', 'order', 'product')
         depth = 2
-        
+
 
 class OrderProducts(ViewSet):
     """Products for Bangazon"""
@@ -31,7 +37,8 @@ class OrderProducts(ViewSet):
         """
         try:
             order_product = OrderProduct.objects.get(pk=pk)
-            serializer = OrderProductSerializer(order_product, context={'request': request})
+            serializer = OrderProductSerializer(
+                order_product, context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
@@ -44,12 +51,78 @@ class OrderProducts(ViewSet):
         """
 
         try:
-            current_order = Order.objects.get(customer_id=request.auth.user.customer.id, payment_type=None)
-            filtered_order_products = OrderProduct.objects.filter(order_id=current_order.id)
+            order_products = OrderProduct.objects.all()
+            serializer = OrderProductSerializer(
+                order_products, many=True, context={'request': request})
+            return Response(serializer.data)
         except OrderProduct.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
-        # order_products = OrderProduct.objects.all()
-        serializer = OrderProductSerializer(
-            filtered_order_products, many=True, context={'request': request})
-        return Response(serializer.data)
+    # def list(self, request):
+    #     if request.method == 'GET':
+    #         with sqlite3.connect(Connection.db_path) as conn:
+    #             conn.row_factory = sqlite3.Row
+    #             db_cursor = conn.cursor()
+
+    #             db_cursor.execute("""
+    #             SELECT
+    #                 bo.id,
+    #                 bo.order_id,
+    #                 bo2.created_at,
+    #                 bo2.customer_id,
+    #                 bo2.payment_type_id,
+    #                 bo.product_id,
+    #                 bp.name,
+    #                 bp.price,
+    #                 bp.description,
+    #                 bp.quantity,
+    #                 bp.location,
+    #                 bp.image_path,
+    #                 bp.customer_id AS 'product_customer_id',
+    #                 bp.product_type_id
+    #             FROM bangazon_orderproduct bo
+    #             JOIN bangazon_order bo2, bangazon_product bp
+    #             ON bo.order_id = bo2.id
+    #             AND bo.product_id = bp.id
+    #             WHERE bo2.payment_type_id IS NULL
+    #             AND bo2.customer_id = ?;
+    #             """,
+    #             (request.auth.user.customer.id,))
+
+    #             all_books = []
+    #             dataset = db_cursor.fetchall()
+
+    #             for row in dataset:
+    #                 order_product = OrderProduct()
+    #                 order_product.id = row['id']
+                    
+    #                 order = Order()
+    #                 order.id = row['order_id']
+    #                 order.created_at = row['created_at']
+    #                 order.customer_id = row['customer_id']
+    #                 order.payment_type_id = row['payment_type_id']
+                    
+    #                 order_product.order = order
+
+    #                 product = Product()
+    #                 product.id = row['product_id']
+    #                 product.name = row['name']
+    #                 product.price = row['price']
+    #                 product.description = row['description']
+    #                 product.quantity = row['quantity']
+    #                 product.location = row['location']
+    #                 product.image_path = row['image_path']
+    #                 product.customer_id = row['product_customer_id']
+    #                 product.product_type_id = ['product_type_id']
+                    
+    #                 order_product.product = product
+
+    #                 all_order_products = []
+    #                 all_order_products.append(order_product)
+
+    #         try:
+    #             serializer = OrderProductSerializer(
+    #                 all_order_products, many=True, context={'request': request})
+    #             return Response(serializer.data)
+    #         except Exception as ex:
+    #             return HttpResponseServerError(ex)
