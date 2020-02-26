@@ -17,7 +17,7 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
             view_name='customer',
             lookup_field='id'
         )
-        fields = ('id', 'is_active', 'user_id')
+        fields = ('id', 'is_active', 'user')
 
 class Customers(ViewSet):
     """Customers for Bangazon"""
