@@ -3,3 +3,4 @@
 __pycache__/
 BangazonEnv/
 db.sqlite3
+connection.py

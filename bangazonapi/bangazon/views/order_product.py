@@ -7,7 +7,7 @@ from bangazon.models import OrderProduct, Order, Product, Customer
 # for custom sql method
 import sqlite3
 from django.shortcuts import render
-from .connection import Connection
+# from .connection import Connection
 
 
 class OrderProductSerializer(serializers.HyperlinkedModelSerializer):
