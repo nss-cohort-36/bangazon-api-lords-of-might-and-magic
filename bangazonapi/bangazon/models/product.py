@@ -1,6 +1,7 @@
 from django.db import models
 from .customer import Customer
 from .product_type import ProductType
+from .order_product import OrderProduct
 
 
 class Product(models.Model):
@@ -14,6 +15,8 @@ class Product(models.Model):
     location = models.CharField(max_length=75)
     image_path = models.CharField(max_length=255)
     product_type = models.ForeignKey(ProductType, on_delete=models.DO_NOTHING)
+    order_products = models.ForeignKey(OrderProduct, on_delete=models.DO_NOTHING)
+
 
     class Meta:
         ordering = ("created_at",)

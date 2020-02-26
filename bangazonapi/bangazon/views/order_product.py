@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazon.models import OrderProduct, Order, Customer
+from bangazon.models import OrderProduct, Order
 
 class OrderProductSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for OrderProducts
@@ -17,6 +17,8 @@ class OrderProductSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         fields = ('id', 'order', 'product')
+        depth = 2
+        
 
 class OrderProducts(ViewSet):
     """Products for Bangazon"""
@@ -40,16 +42,11 @@ class OrderProducts(ViewSet):
         Returns:
             Response -- JSON serialized list of order_products
         """
-        for key in request:
-            print('key: ', key)
-        # current_user = Customer.objects.get(user_id=request.auth.user.id)
 
         try:
-            open_order = Order.objects.get(customer_id=2, payment_type=None)
-
-            # open_order = Order.objects.get(customer=current_user, payment_type=None)
-            filtered_order_products = OrderProduct.objects.filter(order_id=open_order.id)
-        except Order.DoesNotExist as ex:
+            current_order = Order.objects.get(customer_id=request.auth.user.customer.id, payment_type=None)
+            filtered_order_products = OrderProduct.objects.filter(order_id=current_order.id)
+        except OrderProduct.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         # order_products = OrderProduct.objects.all()
