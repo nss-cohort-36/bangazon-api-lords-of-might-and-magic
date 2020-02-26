@@ -9,7 +9,6 @@ import datetime
 from rest_framework.decorators import action
 from .product import ProductSerializer
 from .product import Product
-from .customer import Customer
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for Orders

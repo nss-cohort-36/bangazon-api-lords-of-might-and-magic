@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from bangazon.views import Products, Orders, PaymentTypes, OrderProducts, Customers, ProductTypes
+from bangazon.views import Products, Orders, PaymentTypes, OrderProducts, ProductTypes
 from bangazon.models import *
 from bangazon.views import register_user, login_user
 
