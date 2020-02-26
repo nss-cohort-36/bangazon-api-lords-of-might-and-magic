@@ -82,8 +82,8 @@ class Orders(ViewSet):
             Response -- 200, 404, or 500 status code
         """
         try:
-            Order = Order.objects.get(pk=pk)
-            Order.delete()
+            order_to_delete = Order.objects.get(pk=pk)
+            order_to_delete.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
@@ -99,9 +99,9 @@ class Orders(ViewSet):
         Returns:
             Response -- JSON serialized list of Orders
         """
-        orders = Order.objects.all()
+        orders = Order.objects.get(customer_id=request.auth.user.customer.id, payment_type = None)
         serializer = OrderSerializer(
-            orders, many=True, context={'request': request})
+            orders, context={'request': request})
         return Response(serializer.data)
 
     # Example request:
