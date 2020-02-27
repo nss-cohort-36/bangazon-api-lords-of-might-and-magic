@@ -102,7 +102,7 @@ class Orders(ViewSet):
                 order, context={'request': request})
             return Response(serializer.data)
         except Order.DoesNotExist:
-            return Response({})
+            return Response([])
 
     # Example request:
     #   http://localhost:8000/orders/cart
