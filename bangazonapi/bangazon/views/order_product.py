@@ -60,6 +60,24 @@ class OrderProducts(ViewSet):
         except Exception as ex:
             return HttpResponseServerError(ex)
 
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single Order
+
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            order_product_to_delete = OrderProduct.objects.get(pk=pk)
+            order_product_to_delete.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except OrderProduct.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     def list(self, request):
         """Handle GET requests to order_products resource
 
