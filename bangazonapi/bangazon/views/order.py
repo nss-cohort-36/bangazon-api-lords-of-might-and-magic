@@ -62,11 +62,10 @@ class Orders(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        order = Order()
-        order.created_At = request.data["created_At"]
-        order.customer_id = request.auth.user.customer.id
-        order.payment_type = request.data["payment_type"]
-        order.products = request.data["products"]
+        order = Order.objects.get(pk=pk)
+        
+        order.payment_type_id = request.data["payment_type_id"]
+       
 
         order.save()
 
