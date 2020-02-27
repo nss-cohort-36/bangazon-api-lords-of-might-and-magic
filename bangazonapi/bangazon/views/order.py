@@ -35,10 +35,7 @@ class Orders(ViewSet):
             Response -- JSON serialized Orders instance
         """
         neworder = Order()
-        neworder.created_at = request.data["created_at"]
         neworder.customer_id = request.auth.user.customer.id
-        neworder.payment_type_id = request.data["payment_type_id"]
-        neworder.products = request.data["products"]
 
         neworder.save()
 
@@ -82,8 +79,8 @@ class Orders(ViewSet):
             Response -- 200, 404, or 500 status code
         """
         try:
-            Order = Order.objects.get(pk=pk)
-            Order.delete()
+            order_to_delete = Order.objects.get(pk=pk)
+            order_to_delete.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
@@ -99,10 +96,13 @@ class Orders(ViewSet):
         Returns:
             Response -- JSON serialized list of Orders
         """
-        orders = Order.objects.all()
-        serializer = OrderSerializer(
-            orders, many=True, context={'request': request})
-        return Response(serializer.data)
+        try:
+            order = Order.objects.get(customer_id=request.auth.user.customer.id, payment_type = None)
+            serializer = OrderSerializer(
+                order, context={'request': request})
+            return Response(serializer.data)
+        except Order.DoesNotExist:
+            return Response({})
 
     # Example request:
     #   http://localhost:8000/orders/cart
