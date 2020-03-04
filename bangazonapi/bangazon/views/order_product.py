@@ -98,7 +98,9 @@ class OrderProducts(ViewSet):
                 order_products, many=True, context={'request': request})
             return Response(serializer.data)
         except OrderProduct.DoesNotExist as ex:
-            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+            return Response([])
+        except Order.DoesNotExist as ex: 
+            return Response([])
 
     # def list(self, request):
     #     if request.method == 'GET':
