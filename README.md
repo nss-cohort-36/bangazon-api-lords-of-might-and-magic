@@ -17,10 +17,11 @@
 * Install the app's dependencies:
 
   * `pip install -r requirements.txt`
+  * `pip install django-safedelete`
 
 * Build your database from the existing models:
 
-  * `python manage.py makemigrations hrapp`
+  * `python manage.py makemigrations`
   * `python manage.py migrate`
 
 * Create a superuser for your local version of the app:
@@ -29,8 +30,11 @@
 
 * Populate your database with initial data from fixtures files: (_NOTE: every time you run this it will remove exisiting data and repopulate the tables_)
 
-  * `python manage.py loaddata computers`
-  * `python manage.py loaddata users`
+  * `python manage.py loaddata order-product`
+  * `python manage.py loaddata order`
+  * `python manage.py loaddata payment_type`
+  * `python manage.py loaddata product_type`
+  * `python manage.py loaddata products`
 
 * Fire up your dev server and get to work!
 
