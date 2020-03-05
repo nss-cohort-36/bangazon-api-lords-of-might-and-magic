@@ -13,7 +13,7 @@ class PaymentType(SafeDeleteModel):
     acct_number = models.CharField(max_length=25)
     expiration_date = models.DateField(auto_now=False, auto_now_add=False)
     created_at = models.DateField(auto_now=False, auto_now_add=True)
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         ordering = (F("expiration_date").desc(), )

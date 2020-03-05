@@ -19,6 +19,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
             lookup_field='id'
         )
         fields = ('id', 'url', 'name', 'customer_id', 'price', 'description', 'quantity', 'location', 'image_path', 'product_type_id')
+        depth = 3
 
 class Products(ViewSet):
     """Products for Bangazon"""
@@ -50,7 +51,8 @@ class Products(ViewSet):
         Returns:
             Response -- JSON serialized product instance
         """
-        try:
+
+        try:                
             product = Product.objects.get(pk=pk)
             serializer = ProductSerializer(product, context={'request': request})
             return Response(serializer.data)
@@ -101,6 +103,10 @@ class Products(ViewSet):
         Returns:
             Response -- JSON serialized list of products
         """
+        user = self.request.query_params.get('self')
+        if user == "true":
+            products = Product.objects.filter(customer_id=request.auth.user.customer.id)
+
         products = Product.objects.all()
         serializer = ProductSerializer(
             products, many=True, context={'request': request})
