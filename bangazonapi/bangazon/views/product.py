@@ -85,7 +85,7 @@ class Products(ViewSet):
             try:
                 product = Product.objects.get(pk=pk)
                 serializer = ProductSerializer(product, context={'request': request})
-                return Response(serializer.data)
+                return Response([serializer.data, inventory])
             except Exception as ex:
                 return HttpResponseServerError(ex)
 
