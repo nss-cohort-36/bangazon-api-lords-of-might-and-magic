@@ -97,11 +97,17 @@ class Orders(ViewSet):
         """
         try:
             order = Order.objects.get(customer_id=request.auth.user.customer.id, payment_type = None)
-            serializer = OrderSerializer(
-                order, context={'request': request})
-            return Response(serializer.data)
+            
         except Order.DoesNotExist:
-            return Response([])
+            neworder = Order()
+            neworder.customer_id = request.auth.user.customer.id
+
+            neworder.save()
+            order = Order.objects.get(customer_id=request.auth.user.customer.id, payment_type = None)
+
+        serializer = OrderSerializer(
+                order, context={'request': request})
+        return Response(serializer.data)
 
     # Example request:
     #   http://localhost:8000/orders/cart
