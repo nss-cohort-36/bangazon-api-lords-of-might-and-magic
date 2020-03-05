@@ -60,7 +60,6 @@ class Products(ViewSet):
                 db_cursor = conn.cursor()
 
                 db_cursor.execute("""
-                SELECT
                     SELECT p.id as product_id, COUNT(op.id) as quantity_sold
                     FROM bangazon_orderproduct op 
                     JOIN bangazon_product p
@@ -76,6 +75,9 @@ class Products(ViewSet):
                 for row in dataset:
                     inventory[row['product_id']] = row['quantity_sold']
 
+                for product in products:
+                    if product.id in inventory:
+                        product.quantity -= inventory[product.id]
             serializer = ProductSerializer(
             products, many=True, context={'request': request})
             return Response(serializer.data)
@@ -87,25 +89,25 @@ class Products(ViewSet):
             except Exception as ex:
                 return HttpResponseServerError(ex)
 
-    # def update(self, request, pk=None):
-    #     """Handle PUT requests for a product
+    def update(self, request, pk=None):
+        """Handle PUT requests for a product
 
-    #     Returns:
-    #         Response -- Empty body with 204 status code
-    #     """
-    #     product = Product()
-    #     product.name = request.data["name"]
-    #     product.customerId = request.data["customerId"]
-    #     product.price = request.data["price"]
-    #     product.description = request.data["description"]
-    #     product.quantity = request.data["quantity"]
-    #     product.location = request.data["location"]
-    #     product.imagePath = request.data["imagePath"]
-    #     product.createdAt = request.data["createdAt"]
-    #     product.productTypeId = request.data["productTypeId"]
-    #     product.save()
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        product = Product()
+        product.name = request.data["name"]
+        product.customerId = request.data["customerId"]
+        product.price = request.data["price"]
+        product.description = request.data["description"]
+        product.quantity = request.data["quantity"]
+        product.location = request.data["location"]
+        product.imagePath = request.data["imagePath"]
+        product.createdAt = request.data["createdAt"]
+        product.productTypeId = request.data["productTypeId"]
+        product.save()
 
-    #     return Response({}, status=status.HTTP_204_NO_CONTENT)
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     # def destroy(self, request, pk=None):
     #     """Handle DELETE requests for a single product
