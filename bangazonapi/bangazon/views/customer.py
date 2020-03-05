@@ -43,8 +43,7 @@ class Customers(ViewSet):
         Returns:
             Response -- JSON serialized list of products
         """
-        customers = Customer.objects.all()
-        id = self.request.query_params.get('id', None)
+        customers = Customer.objects.filter(id = request.auth.user.customer.id)
         serializer = CustomerSerializer(
             customers, many=True, context={'request': request})
         return Response(serializer.data)
