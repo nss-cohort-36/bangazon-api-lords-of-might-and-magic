@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazon.models import Product, OrderProduct
+from bangazon.models import Product, OrderProduct, Order
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -103,7 +103,8 @@ class Products(ViewSet):
         """
         products = Product.objects.all()
         for product in products:
-            product_inventory = OrderProduct.objects.filter(pk=product.id, payment_type__isNull=True).count()
+            completedOrders = Order.objects.filter(payment_type__isnull=False)
+            product_inventory = completedOrders.filter(pk=product.id).count()
             product.inventory = product.quantity - product_inventory
             
         serializer = ProductSerializer(
