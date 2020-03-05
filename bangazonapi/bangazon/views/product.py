@@ -4,6 +4,8 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from bangazon.models import Product
+import sqlite3
+from ..connection import Connection
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,12 +52,40 @@ class Products(ViewSet):
         Returns:
             Response -- JSON serialized product instance
         """
-        try:
-            product = Product.objects.get(pk=pk)
-            serializer = ProductSerializer(product, context={'request': request})
+        if pk == '0':
+            products = Product.objects.filter(customer_id=request.auth.user.customer.id)
+            
+            with sqlite3.connect(Connection.db_path) as conn:
+                conn.row_factory = sqlite3.Row
+                db_cursor = conn.cursor()
+
+                db_cursor.execute("""
+                SELECT
+                    SELECT p.id as product_id, COUNT(op.id) as quantity_sold
+                    FROM bangazon_orderproduct op 
+                    JOIN bangazon_product p
+                    ON op.product_id = p.id
+                    LEFT JOIN bangazon_order o
+                    ON op.order_id =o.id
+                    GROUP BY p.id;      
+                """)
+
+                inventory = {}
+                dataset = db_cursor.fetchall()
+
+                for row in dataset:
+                    inventory[row['product_id']] = row['quantity_sold']
+
+            serializer = ProductSerializer(
+            products, many=True, context={'request': request})
             return Response(serializer.data)
-        except Exception as ex:
-            return HttpResponseServerError(ex)
+        else:
+            try:
+                product = Product.objects.get(pk=pk)
+                serializer = ProductSerializer(product, context={'request': request})
+                return Response(serializer.data)
+            except Exception as ex:
+                return HttpResponseServerError(ex)
 
     # def update(self, request, pk=None):
     #     """Handle PUT requests for a product
