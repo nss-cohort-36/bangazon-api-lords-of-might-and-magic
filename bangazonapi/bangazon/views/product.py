@@ -77,7 +77,7 @@ class Products(ViewSet):
 
                 for product in products:
                     if product.id in inventory:
-                        product.quantity -= inventory[product.id]
+                        product.inventory = product.quantity - inventory[product.id]
             serializer = ProductSerializer(
             products, many=True, context={'request': request})
             return Response(serializer.data)
@@ -95,16 +95,15 @@ class Products(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        product = Product.object.get(pk=pk)
+        product = Product.objects.get(pk=pk)
         product.name = request.data["name"]
-        product.customerId = request.data["customerId"]
+        product.customer_id = request.data["customer_id"]
         product.price = request.data["price"]
         product.description = request.data["description"]
         product.quantity = request.data["quantity"]
         product.location = request.data["location"]
-        product.imagePath = request.data["imagePath"]
-        product.createdAt = request.data["createdAt"]
-        product.productTypeId = request.data["productTypeId"]
+        product.image_path = request.data["image_path"]
+        product.product_type_id = request.data["product_type_id"]
         product.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
