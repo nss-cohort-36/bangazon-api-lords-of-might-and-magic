@@ -95,7 +95,7 @@ class Products(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        product = Product()
+        product = Product.object.get(pk=pk)
         product.name = request.data["name"]
         product.customerId = request.data["customerId"]
         product.price = request.data["price"]
