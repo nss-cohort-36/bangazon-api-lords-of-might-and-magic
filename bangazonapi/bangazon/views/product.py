@@ -3,7 +3,8 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazon.models import Product
+from bangazon.models import Product, Customer
+from rest_framework.decorators import action
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -103,12 +104,23 @@ class Products(ViewSet):
         Returns:
             Response -- JSON serialized list of products
         """
-        user = self.request.query_params.get('self')
-        if user == "true":
-            products = Product.objects.filter(customer_id=request.auth.user.customer.id)
 
-        products = Product.objects.all()
+        products = Product.objects.all()     
         serializer = ProductSerializer(
             products, many=True, context={'request': request})
         return Response(serializer.data)
 
+
+    @action(methods=['get'], detail=False)
+    def my_products(self, request):
+        current_user = Customer.objects.get(user=request.auth.user)
+
+        try:
+            product = Product.objects.all(customer=current_user)
+            print(product)
+        except product.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ProductSerializer(product, many=True, context={'request': request})
+        return Response(serializer.data)
+            
