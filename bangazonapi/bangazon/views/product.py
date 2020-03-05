@@ -117,7 +117,6 @@ class Products(ViewSet):
 
         try:
             product = Product.objects.all(customer=current_user)
-            print(product)
         except product.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
