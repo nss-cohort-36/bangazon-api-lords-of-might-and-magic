@@ -2,9 +2,13 @@ from django.db import models
 from .customer import Customer
 from .product_type import ProductType
 from .order_product import OrderProduct
+from safedelete.models import SafeDeleteModel
+from safedelete.models import HARD_DELETE_NOCASCADE
 
 
-class Product(models.Model):
+class Product(SafeDeleteModel):
+
+    _safedelete_policy = HARD_DELETE_NOCASCADE
 
     created_at = models.DateField(auto_now=False, auto_now_add=True)
     name = models.CharField(max_length=50)
@@ -14,7 +18,7 @@ class Product(models.Model):
     quantity = models.IntegerField()
     location = models.CharField(max_length=75)
     image_path = models.CharField(max_length=255)
-    product_type = models.ForeignKey(ProductType, on_delete=models.DO_NOTHING)
+    product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ("created_at",)
