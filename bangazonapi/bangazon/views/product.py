@@ -3,9 +3,9 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazon.models import Product
 import sqlite3
 from ..connection import Connection
+from bangazon.models import Product, OrderProduct, Order
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -20,7 +20,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
             view_name='product',
             lookup_field='id'
         )
-        fields = ('id', 'url', 'name', 'customer_id', 'price', 'description', 'quantity', 'location', 'image_path', 'product_type_id')
+        fields = ('id', 'url', 'name', 'customer_id', 'price', 'description', 'quantity', 'location', 'image_path', 'product_type_id', 'inventory')
 
 class Products(ViewSet):
     """Products for Bangazon"""
@@ -133,6 +133,11 @@ class Products(ViewSet):
             Response -- JSON serialized list of products
         """
         products = Product.objects.all()
+        for product in products:
+            completedOrders = Order.objects.filter(payment_type__isnull=False)
+            product_inventory = completedOrders.filter(pk=product.id).count()
+            product.inventory = product.quantity - product_inventory
+            
         serializer = ProductSerializer(
             products, many=True, context={'request': request})
         return Response(serializer.data)
