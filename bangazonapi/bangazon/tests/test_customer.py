@@ -42,7 +42,7 @@ class TestCustomer(TestCase):
           )
 
         # Getting 200 back because we have a success url
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 204)
 
         # Query the table to see if there's one ParkArea instance in there. Since we are testing a POST request, we don't need to test whether an HTTP GET works. So, we just use the ORM to see if the thing we saved is in the db.
         self.assertEqual(Customer.objects.count(), 1)
