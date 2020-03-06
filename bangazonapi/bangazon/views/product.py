@@ -78,6 +78,8 @@ class Products(ViewSet):
                 for product in products:
                     if product.id in inventory:
                         product.inventory = product.quantity - inventory[product.id]
+                    else: 
+                        product.inventory = product.quantity
             serializer = ProductSerializer(
             products, many=True, context={'request': request})
             return Response(serializer.data)
@@ -85,7 +87,7 @@ class Products(ViewSet):
             try:
                 product = Product.objects.get(pk=pk)
                 serializer = ProductSerializer(product, context={'request': request})
-                return Response([serializer.data, inventory])
+                return Response(serializer.data)
             except Exception as ex:
                 return HttpResponseServerError(ex)
 
@@ -105,8 +107,9 @@ class Products(ViewSet):
         product.image_path = request.data["image_path"]
         product.product_type_id = request.data["product_type_id"]
         product.save()
+        serializer = ProductSerializer(product, context={'request': request})
+        return Response(serializer.data)
 
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     # def destroy(self, request, pk=None):
     #     """Handle DELETE requests for a single product
