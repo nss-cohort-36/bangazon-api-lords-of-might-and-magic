@@ -40,7 +40,7 @@ class TestProductType(TestCase):
         )
 
         # Now we can grab all the area (meaning the one we just created) from the db
-        response = self.client.get(reverse('producttype-list'))
+        response = self.client.get(reverse('producttype-list'), HTTP_AUTHORIZATION='Token ' + str(self.token))
 
         # Check that the response is 200 OK.
         # This is checking for the GET request result, not the POST. We already checked that POST works in the previous test!
