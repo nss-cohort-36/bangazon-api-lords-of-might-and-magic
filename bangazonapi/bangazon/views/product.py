@@ -80,23 +80,23 @@ class Products(ViewSet):
 
     #     return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-    # def destroy(self, request, pk=None):
-    #     """Handle DELETE requests for a single product
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single product
 
-    #     Returns:
-    #         Response -- 200, 404, or 500 status code
-    #     """
-    #     try:
-    #         product = Product.objects.get(pk=pk)
-    #         product.delete()
+        Returns:
+            Response -- 200, 404, or 500 status code
+        """
+        try:
+            product = Product.objects.get(pk=pk)
+            product.delete()
 
-    #         return Response({}, status=status.HTTP_204_NO_CONTENT)
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-    #     except Product.DoesNotExist as ex:
-    #         return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        except Product.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
-    #     except Exception as ex:
-    #         return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def list(self, request):
         """Handle GET requests to products resource
@@ -116,7 +116,7 @@ class Products(ViewSet):
         current_user = Customer.objects.get(user=request.auth.user)
 
         try:
-            product = Product.objects.all(customer=current_user)
+            product = Product.objects.filter(customer_id=current_user.id)
         except product.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
