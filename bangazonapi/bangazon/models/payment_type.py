@@ -1,13 +1,13 @@
 from django.db import models
 from django.db.models import F
 from safedelete.models import SafeDeleteModel
-from safedelete.models import HARD_DELETE_NOCASCADE
+from safedelete.models import SOFT_DELETE
 from .customer import Customer
 
 
 class PaymentType(SafeDeleteModel):
     # Objects will be hard-deleted, or soft deleted if other objects would have been deleted too.
-    _safedelete_policy = HARD_DELETE_NOCASCADE
+    _safedelete_policy = SOFT_DELETE
 
     merchant_name = models.CharField(max_length=25)
     acct_number = models.CharField(max_length=25)
