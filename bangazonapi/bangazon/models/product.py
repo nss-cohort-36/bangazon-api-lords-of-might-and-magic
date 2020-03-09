@@ -4,7 +4,9 @@ from .product_type import ProductType
 from .order_product import OrderProduct
 
 
+
 class Product(models.Model):
+
 
     created_at = models.DateField(auto_now=False, auto_now_add=True)
     name = models.CharField(max_length=50)

@@ -16,7 +16,6 @@ class TestProducts(TestCase):
         self.customer = Customer.objects.create(user=self.user, is_active=True)
         self.product_type = ProductType.objects.create(name="outdoors")
 
-
     def test_post_product(self):
 
         new_product = {
