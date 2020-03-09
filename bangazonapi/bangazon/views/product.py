@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 import sqlite3
-from .connection import Connection
+from ..connection import Connection
 from bangazon.models import Product, OrderProduct, Order
 
 
