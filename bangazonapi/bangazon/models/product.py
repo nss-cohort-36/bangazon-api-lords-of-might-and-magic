@@ -5,10 +5,10 @@ from .order_product import OrderProduct
 from safedelete.models import SafeDeleteModel
 from safedelete.models import HARD_DELETE_NOCASCADE
 
-
 class Product(SafeDeleteModel):
 
     _safedelete_policy = HARD_DELETE_NOCASCADE
+
 
     created_at = models.DateField(auto_now=False, auto_now_add=True)
     name = models.CharField(max_length=50)
