@@ -15,6 +15,17 @@ class TestProducts(TestCase):
         self.token = Token.objects.create(user=self.user)
         self.customer = Customer.objects.create(user=self.user, is_active=True)
         self.product_type = ProductType.objects.create(name="outdoors")
+        self.new_product = Product.objects.create(
+            name= "cup",
+            customer= self.customer,
+            price= 17.11,
+            description= "a long string with a beautiful description",
+            quantity= 7,
+            location= "somewhere",
+            image_path= "picture.jpg",
+            created_at= "2020-02-21",
+            product_type= self.product_type
+        )
 
     def test_post_product(self):
 
@@ -37,24 +48,24 @@ class TestProducts(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(Product.objects.count(), 1)
+        self.assertEqual(Product.objects.count(), 2)
 
         self.assertEqual(Product.objects.get().name, 'cup')
 
 
     def test_get_product(self):
 
-        new_product = Product.objects.create(
-            name= "cup",
-            customer= self.customer,
-            price= 17.11,
-            description= "a long string with a beautiful description",
-            quantity= 7,
-            location= "somewhere",
-            image_path= "picture.jpg",
-            created_at= "2020-02-21",
-            product_type= self.product_type
-        )
+        # new_product = Product.objects.create(
+        #     name= "cup",
+        #     customer= self.customer,
+        #     price= 17.11,
+        #     description= "a long string with a beautiful description",
+        #     quantity= 7,
+        #     location= "somewhere",
+        #     image_path= "picture.jpg",
+        #     created_at= "2020-02-21",
+        #     product_type= self.product_type
+        # )
 
         response = self.client.get(reverse('product-list'), HTTP_AUTHORIZATION='Token ' + str(self.token))
 
@@ -67,7 +78,7 @@ class TestProducts(TestCase):
         self.assertEqual(response.data[0]["name"], "cup")
 
 
-        self.assertIn(new_product.name.encode(), response.content)
+        self.assertIn(self.new_product.name.encode(), response.content)
 
 
 
@@ -85,9 +96,8 @@ class TestProducts(TestCase):
             "product_type_id": self.product_type.id 
 
         }
-
         
-        response = self.client.delete(reverse('product-list')+f'/{str(self.new_product.id)}', HTTP_AUTHORIZATION='Token ' + str(self.token))
+        response = self.client.delete(reverse('product-list')+f'/{str(self.new_product.id)}',new_product, HTTP_AUTHORIZATION='Token ' + str(self.token))
 
         self.assertEqual(response.status_code, 204)
 
