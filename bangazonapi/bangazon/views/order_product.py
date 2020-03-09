@@ -56,7 +56,7 @@ class OrderProducts(ViewSet):
             order_product = OrderProduct.objects.get(pk=pk)
             serializer = OrderProductSerializer(
                 order_product, context={'request': request})
-            return Response(serializer.data)
+            return Response(serializer.data)    
         except Exception as ex:
             return HttpResponseServerError(ex)
 
