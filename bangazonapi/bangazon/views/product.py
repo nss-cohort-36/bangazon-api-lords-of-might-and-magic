@@ -3,6 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
+from rest_framework.decorators import action
 import sqlite3
 from ..connection import Connection
 from bangazon.models import Product, OrderProduct, Order
@@ -145,3 +146,16 @@ class Products(ViewSet):
             products, many=True, context={'request': request})
         return Response(serializer.data)
 
+
+    # @action(methods=['get'], detail=False)
+    # def my_products(self, request):
+    #     current_user = Customer.objects.get(user=request.auth.user)
+
+    #     try:
+    #         product = Product.objects.filter(customer_id=current_user.id)
+    #     except product.DoesNotExist as ex:
+    #         return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+    #     serializer = ProductSerializer(product, many=True, context={'request': request})
+    #     return Response(serializer.data)
+            
