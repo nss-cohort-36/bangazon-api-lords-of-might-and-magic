@@ -84,31 +84,31 @@ class TestProducts(TestCase):
 
         self.assertIn(new_product.name.encode(), response.content)
 
-    def test_update_product(self):
+    # def test_update_product(self):
 
-        updated_product = {
-            "id": 1,
-            "name": "cup",
-            "customer": self.customer,
-            "price": 17.11,
-            "description": "a long string with a beautiful description",
-            "quantity": 7,
-            "location": "over there",
-            "image_path": "picture.jpg",
-            "created_at": "2020-02-21",
-            "product_type_id": self.product_type.id 
+    #     updated_product = {
+    #         "id": 1,
+    #         "name": "cup",
+    #         "customer": self.customer,
+    #         "price": 17.11,
+    #         "description": "a long string with a beautiful description",
+    #         "quantity": 7,
+    #         "location": "over there",
+    #         "image_path": "picture.jpg",
+    #         "created_at": "2020-02-21",
+    #         "product_type_id": self.product_type.id 
 
-        }
+    #     }
 
-        response = self.client.put(reverse('product-list')+f'/{str(updated_product.id)}', updated_product, HTTP_AUTHORIZATION='Token ' + str(self.token), content_type="application/json")
-
-
-        self.assertEqual(response.status_code, 204)
+    #     response = self.client.put(reverse('product-list')+f'/{str(updated_product.id)}', updated_product, HTTP_AUTHORIZATION='Token ' + str(self.token), content_type="application/json")
 
 
-        self.assertEqual(len(response.data), 1)
+    #     self.assertEqual(response.status_code, 204)
 
-        self.assertEqual(response.data[0]["location"], "over there")
+
+    #     self.assertEqual(len(response.data), 1)
+
+    #     self.assertEqual(response.data[0]["location"], "over there")
 
 
 
