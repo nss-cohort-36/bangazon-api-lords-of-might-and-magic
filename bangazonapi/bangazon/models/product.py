@@ -2,10 +2,12 @@ from django.db import models
 from .customer import Customer
 from .product_type import ProductType
 from .order_product import OrderProduct
+from safedelete.models import SafeDeleteModel
+from safedelete.models import SOFT_DELETE
 
+class Product(SafeDeleteModel):
 
-
-class Product(models.Model):
+    _safedelete_policy = SOFT_DELETE
 
 
     created_at = models.DateField(auto_now=False, auto_now_add=True)
